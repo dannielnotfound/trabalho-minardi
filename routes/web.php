@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\EnumDespesaStatus;
+use App\Enums\EnumDespesaTipo;
 use App\Http\Controllers\Site\DespesasController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Site\InvestimentosController;
@@ -19,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    dd(EnumDespesaStatus::fromValue('P'));
 });
 
 Route::get('/dashboard', function () {
