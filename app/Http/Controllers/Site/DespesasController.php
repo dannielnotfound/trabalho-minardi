@@ -11,9 +11,9 @@ use Illuminate\Http\Request;
 class DespesasController extends Controller
 {      
 
-    protected Despesa $model;
+    protected $model;
 
-    public function __construct($model)
+    public function __construct(Despesa $model)
     {
         $this->model = $model;
     }
@@ -42,8 +42,7 @@ class DespesasController extends Controller
             return redirect()->back(); //Error
         }
 
-        $despesa = $this->model->find($id);
-
+        $despesa = $this->model;
         return view('site.despesas.show', ['despesa' => $despesa]);
     }
 
