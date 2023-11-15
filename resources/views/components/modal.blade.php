@@ -15,9 +15,11 @@ $maxWidth = [
 ][$maxWidth];
 @endphp
 
-<div
+<div 
+    style="display: none"
     x-data="{
-        show: @js($show),
+        show: teste,
+
         focusables() {
             // All focusable element types...
             let selector = 'a, button, input:not([type=\'hidden\']), textarea, select, details, [tabindex]:not([tabindex=\'-1\'])'
@@ -32,6 +34,7 @@ $maxWidth = [
         nextFocusableIndex() { return (this.focusables().indexOf(document.activeElement) + 1) % (this.focusables().length + 1) },
         prevFocusableIndex() { return Math.max(0, this.focusables().indexOf(document.activeElement)) -1 },
     }"
+    {{-- x-text="teste" --}}
     x-init="$watch('show', value => {
         if (value) {
             document.body.classList.add('overflow-y-hidden');
@@ -46,16 +49,19 @@ $maxWidth = [
     x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
     x-on:keydown.shift.tab.prevent="prevFocusable().focus()"
     x-show="show"
-
-    @hashchange.window="
+    
+    {{-- @hashchange.window="
         show = (location.hash === '#modal') 
-    "
+    "   
+
+    @click.outside="show = (location.hash !=== '#modal')" --}}
 
 
 
     class="fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-50"
     style="display: {{ $show ? 'block' : 'none' }};"
->
+>   
+    
     <div
         x-show="show"
         class="fixed inset-0 transform transition-all"
@@ -72,6 +78,7 @@ $maxWidth = [
 
     <div
         x-show="show"
+        x-on:click="show = false"
         class="mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full {{ $maxWidth }} sm:mx-auto"
         x-transition:enter="ease-out duration-300"
         x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
@@ -80,7 +87,7 @@ $maxWidth = [
         x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
         x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
     >
-    
-    {{ $slot }}
+    teste
+    {{-- {{ $slot }} --}}
     </div>
 </div>

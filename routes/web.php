@@ -35,11 +35,22 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function (){
- 
+    
+    // Receitas 
     Route::get('/receitas', [ReceitasController::class, 'index'])->name('receitas.index');
+    Route::get('/receitas/create', [DespesasController::class, 'create'])->name('receitas.create');
+
+
+    //Investimentos
     Route::get('/investimentos', [InvestimentosController::class, 'index'])->name('investimentos.index');
+    Route::get('/investimentos/create', [InvestimentosController::class, 'create'])->name('investimentos.create');
+    
+    
+    //Reservas 
     Route::get('/reservas', [ReservasController::class, 'index'])->name('reservas.index');
- 
+    Route::get('/reservas/create', [ReservasController::class, 'create'])->name('reservas.create');
+
+    
     // Despesas Routes 
     Route::get('/despesas', [DespesasController::class, 'index'])->name('despesas.index');
     Route::get('/despesas/show/{id}', [DespesasController::class, 'show'])->name('despesas.show');

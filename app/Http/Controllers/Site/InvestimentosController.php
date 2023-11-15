@@ -9,6 +9,11 @@ class InvestimentosController extends Controller
 {
     public function index()
     {
-        return view('site.teste');
+        return view('site.investimentos.index');
+    }
+
+    public function create()
+    {
+        return view('site.investimentos.create');
     }
 }

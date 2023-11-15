@@ -9,6 +9,11 @@ class ReservasController extends Controller
 {
     public function index()
     {
-        return view('site.teste');
+        return view('site.reservas.index');
+    }
+
+    public function create()
+    {
+        return view('site.reservas.create');
     }
 }

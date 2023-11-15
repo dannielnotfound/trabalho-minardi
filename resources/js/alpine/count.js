@@ -3,7 +3,7 @@ export default function count(){
         count: 0,
         increment:function(){
             this.count++
-        }
+        } 
     }
 }
 
