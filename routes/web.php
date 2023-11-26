@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function (){
     Route::get('/despesas/create', [DespesasController::class, 'create'])->name('despesas.create');
     Route::post('/despesas/store', [DespesasController::class, 'store'])->name('despesas.store');
     Route::get('/despesas/edit/{id}', [DespesasController::class, 'edit'])->name('despesas.edit');
-    Route::put('/despesas/update', [DespesasController::class, 'update'])->name('despesas.update');
+    Route::put('/despesas/update/{id}', [DespesasController::class, 'update'])->name('despesas.update');
     Route::get('/despesas/delete/{id}', [DespesasController::class, 'delete'])->name('despesas.delete');
     Route::delete('/despesas/destroy/{id}', [DespesasController::class, 'destroy'])->name('despesas.destroy');
 

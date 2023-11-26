@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use App\Enums\EnumDespesaStatus;
 use App\Enums\EnumDespesaTipo;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -18,9 +19,11 @@ class DespesasController extends Controller
     protected $model;
     protected $user;
 
-    public function __construct(Despesa $model )
+    public function __construct(Despesa $model, User $user )    
+
     {   
         $this->model = $model;
+        $this->user = $user;
     }
 
     public function index()
@@ -33,9 +36,11 @@ class DespesasController extends Controller
             }
         })->paginate();
         
-
+        
         return view('site.despesas.index', ['despesas' => $result]);
     }
+
+
 
     public function create():View
     {   
@@ -44,13 +49,17 @@ class DespesasController extends Controller
 
     public function show(Int $id)
     {   
-        if(!$this->model->find($id)){
+        if(! $despesa = $this->model->find($id)){
             return redirect()->back();
         }
 
-        $despesa = $this->model->find($id);
 
-        return view('site.despesas.show', ['despesa' => $despesa]);
+        if(! $user = $this->user->find($despesa->user_id)){
+            return redirect()->back();
+        }
+
+        
+        return view('site.despesas.show', ['despesa' => $despesa, 'usuario' => $user]);
     }
 
     public function store(DespesaStoreUpdateRequest $request)
@@ -65,8 +74,7 @@ class DespesasController extends Controller
         $user = auth()->user();
        
         $data['user_id'] = $user->id;
-        $data['status'] = 'F';
-        $data['tipo_despesa'] = 'F';
+      
 
         if(!$this->model->create($data)){
             return redirect()->back(); //Error
@@ -75,16 +83,41 @@ class DespesasController extends Controller
         return redirect()->route('despesas.index');
     }
 
-    public function update(DespesaStoreUpdateRequest $request, $id)
+    public function edit(int $id)
     {   
-        $data = $request->all();
-
-        if(!$this->model->find($id)){
+        if(! $despesa = $this->model->find($id)){
             return redirect()->back();
         }
 
-        $despesa = $this->model->find($id);
+        return view('site.despesas.edit', ['tipos' => EnumDespesaTipo::cases(), 'status' => EnumDespesaStatus::cases(), 'despesas' => $despesa ]);
+    }
 
-        return view('site.despesas.show', ['despesa' => $despesa]);
+    public function update(DespesaStoreUpdateRequest $request, $id)
+    {   
+        $data = $request->all();
+        
+
+        if(!$despesa = $this->model->find($id)){
+            return redirect()->back();
+        }
+
+       
+
+        $despesa->update($data);
+        
+        return redirect()->route('despesas.index');
+
+    }
+
+    public function destroy(int $id)
+    {   
+
+       
+        if(!$this->model->destroy($id)){
+            return redirect()->back();
+        }
+
+        return redirect()->route('despesas.index');
+
     }
 }

@@ -1,6 +1,7 @@
 @props([
     'status',
-    'tipos'
+    'tipos',
+    'despesa' => null
 ])
 
 <script>
@@ -31,7 +32,7 @@
     <div class="mb-4">
         <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Titulo</label>
         <div class="mt-2">
-            <input id="titulo" name="titulo" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <input id="titulo" value="{{ $despesa ? $despesa->titulo : '' }}" name="titulo" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
         </div>
     </div>
 
@@ -40,7 +41,9 @@
             <label for="descricao" class="block text-sm font-medium leading-6 text-gray-900">Descricão</label>
         </div>
         <div class="mt-2">
-            <textarea name="descricao" id="descricao" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+            <textarea name="descricao" id="descricao" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              {{ $despesa ? $despesa->titulo : '' }}
+            </textarea>
         </div>
     </div>
 
@@ -48,14 +51,14 @@
     <div class="mb-4">
         <label for="vencimento" class="block text-sm font-medium leading-6 text-gray-900">Vencimento</label>
         <div class="mt-2">
-            <input id="vencimento" name="vencimento" type="date"  required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <input id="vencimento" name="vencimento" type="date" value="{{ $despesa ? $despesa->vencimento : '' }}" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
         </div>
     </div>
 
     <div class="mb-4">
         <label for="valor" class="block text-sm font-medium leading-6 text-gray-900">Valor</label>
         <div class="mt-2">
-            <input  id="valor" name="valor" type="number" step=".01" placeholder="R$ " required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <input  id="valor" name="valor" type="number" value="{{ $despesa ? $despesa->valor : '' }}" step=".01" placeholder="R$ " required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
         </div>
     </div>
 
@@ -63,7 +66,7 @@
     <div class="mb-4">
         <label for="categoria" class="block text-sm font-medium leading-6 text-gray-900">Categoria</label>
         <div class="mt-2">
-            <input id="categoria" name="categoria" type="text"  required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <input id="categoria" name="categoria" type="text" value="{{ $despesa ? $despesa->categoria : '' }}"  required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
         </div>
     </div>
 

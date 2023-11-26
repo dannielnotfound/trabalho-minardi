@@ -13,15 +13,13 @@
     </x-slot>
     
     <x-content-box>
-        <h1>Despesas</h1>
-
-       <div class="">
-        @foreach ($despesas as $depesa)
-            {{$depesa->titulo}}
-        @endforeach
-        {{ dd($despesas->links()) }}
-       </div>
-
+       
+        @if (!count($despesas) == 0 )
+            <x-despesas.table :despesas="$despesas"></x-despesas>
+            {{-- <x-despesas.pagination :paginator="$despesas"></x-despesas.pagination> --}}
+        @else
+          <h1>Você ainda não possuí despesas cadastradas.</h1>  
+        @endif
     </x-content-box>
 
 </x-app-layout>

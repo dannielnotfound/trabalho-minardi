@@ -2,12 +2,11 @@
 
 namespace App\Helpers;
 
-
 use App\Enums\EnumDespesaStatus;
 use App\Enums\EnumDespesaTipo;
 
 if (!function_exists('getDespesasStatus')){
-    function getDespesasStatus(string $value)
+    function getDespesasStatus(string $value): string
     {
         return EnumDespesaStatus::fromValue($value);
     }

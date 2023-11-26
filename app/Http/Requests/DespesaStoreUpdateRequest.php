@@ -38,8 +38,8 @@ class DespesaStoreUpdateRequest extends FormRequest
             "vencimento" => "required",
             "valor" => 'required',
             "categoria" => 'max:255',
-            // "tipo_despesa" => 'required',
-            // "status" => 'required',
+            "tipo_despesa" => 'required',
+            "status" => 'required',
         ];
     }
 }

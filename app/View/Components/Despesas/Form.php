@@ -8,7 +8,7 @@ use Illuminate\View\Component;
 use App\Enums\EnumDespesaStatus;
 use App\Enums\EnumDespesaTipo;
 
-class form extends Component
+class Form extends Component
 {
     /**
      * Create a new component instance.
