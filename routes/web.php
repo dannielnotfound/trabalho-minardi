@@ -21,9 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    dd(EnumDespesaStatus::fromValue('P'));
-});
+Route::get('/', [IndexController::class, 'index'])->name('index.home');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -39,7 +37,7 @@ Route::middleware('auth')->group(function (){
     
     // Dashboard
     
-    Route::get('/dashboard', [IndexController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DespesasController::class, 'index'])->name('dashboard');
     
 
 

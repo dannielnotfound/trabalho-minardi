@@ -54,7 +54,7 @@
                                     
                                     <!-- Modal -->
                                     <div x-show="open">
-                                        <x-despesas.delete :despesa="$despesa"/>
+                                        <x-despesas.delete :despesa="$despesa" attribute='visible'/>
                                     </div>  
                                 </div>
                             </div>

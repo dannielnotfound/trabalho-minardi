@@ -14,17 +14,51 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/alpine/start.js'])
     </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
+    <body class="font-sans  antialiased">
+       
+        <header>
+            <nav x-data="{ open: false }" class="bg-black border-b border-white text-white">
+                <!-- Primary --u--- Menu -->
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between h-16">
+                        <div class="w-full flex justify-between text-white">
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
-            </div>
-        </div>
+                            <div class="shrink-0 flex items-center">
+                                <a href="{{ route('index.home') }}">
+                                    <x-application-logo class="block h-9 w-auto fill-current" />
+                                </a>
+                            </div>
+            
+        
+                            @if (Route::has('login'))
+                                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                    @auth
+                                        <a href="{{ route('dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
+                                    @else
+                                        <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
+                                            {{__('Login')}}
+                                        </x-nav-link>
+
+                                  
+                                        @if (Route::has('register'))
+                                            <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                                                {{__('Cadastre-se')}}
+                                            </x-nav-link>
+                                            
+                                        @endif 
+                                    @endauth
+                                </div>
+                            @endif
+                            
+                    </div>
+                </div>
+            </nav>   
+            
+        </header>
+
+        <main class="mt-12 mx-6">
+            {{$slot}}
+        </main>
+        
     </body>
 </html>
