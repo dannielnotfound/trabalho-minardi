@@ -72,7 +72,8 @@ class DespesasController extends Controller
         };
 
         $user = auth()->user();
-       
+        
+        $data['valor'] = str_replace(',', '.',  $data['valor']);;
         $data['user_id'] = $user->id;
       
 
@@ -89,7 +90,8 @@ class DespesasController extends Controller
             return redirect()->back();
         }
 
-        return view('site.despesas.edit', ['tipos' => EnumDespesaTipo::cases(), 'status' => EnumDespesaStatus::cases(), 'despesas' => $despesa ]);
+
+        return view('site.despesas.edit', ['tipos' => EnumDespesaTipo::cases(), 'status' => EnumDespesaStatus::cases(), 'despesa' => $despesa ]);
     }
 
     public function update(DespesaStoreUpdateRequest $request, $id)
@@ -100,8 +102,6 @@ class DespesasController extends Controller
         if(!$despesa = $this->model->find($id)){
             return redirect()->back();
         }
-
-       
 
         $despesa->update($data);
         

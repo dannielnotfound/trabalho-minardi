@@ -2,6 +2,7 @@
 
 use App\Enums\EnumDespesaStatus;
 use App\Enums\EnumDespesaTipo;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Site\DespesasController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Site\InvestimentosController;
@@ -24,9 +25,9 @@ Route::get('/', function () {
     dd(EnumDespesaStatus::fromValue('P'));
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -36,9 +37,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function (){
     
-    // Receitas 
-    Route::get('/receitas', [ReceitasController::class, 'index'])->name('receitas.index');
-    Route::get('/receitas/create', [DespesasController::class, 'create'])->name('receitas.create');
+    // Dashboard
+    
+    Route::get('/dashboard', [IndexController::class, 'index'])->name('dashboard');
+    
 
 
     //Investimentos
@@ -61,6 +63,16 @@ Route::middleware('auth')->group(function (){
     Route::get('/despesas/delete/{id}', [DespesasController::class, 'delete'])->name('despesas.delete');
     Route::delete('/despesas/destroy/{id}', [DespesasController::class, 'destroy'])->name('despesas.destroy');
 
+
+    // Receitas
+    Route::get('/receitas', [ReceitasController::class, 'index'])->name('receitas.index');
+    Route::get('/receitas/show/{id}', [ReceitasController::class, 'show'])->name('receitas.show');
+    Route::get('/receitas/create', [ReceitasController::class, 'create'])->name('receitas.create');
+    Route::post('/receitas/store', [ReceitasController::class, 'store'])->name('receitas.store');
+    Route::get('/receitas/edit/{id}', [ReceitasController::class, 'edit'])->name('receitas.edit');
+    Route::put('/receitas/update/{id}', [ReceitasController::class, 'update'])->name('receitas.update');
+    Route::get('/receitas/delete/{id}', [ReceitasController::class, 'delete'])->name('receitas.delete');
+    Route::delete('/receitas/destroy/{id}', [ReceitasController::class, 'destroy'])->name('receitas.destroy');
 });
 
 require __DIR__.'/auth.php';

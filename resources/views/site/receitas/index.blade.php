@@ -22,9 +22,13 @@
         <div>
             <x-create-button route="receitas.create" text="Incluir Receita"></x-create-button>
         </div>
-    </x-slot>
-    
+    </x-slot>   
     <x-content-box>
-        <h1>Receitas</h1>
+        @if (!count($receitas) == 0 )
+            <x-receitas.table :receitas="$receitas"></x-receitas.table>
+            {{-- <x-despesas.pagination :paginator="$receitas"></x-despesas.pagination> --}}
+        @else
+          <h1>Você ainda não possuí receitas cadastradas.</h1>  
+        @endif
     </x-content-box>
 </x-app-layout>

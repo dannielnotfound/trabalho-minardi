@@ -1,24 +1,19 @@
 <x-app-layout>
-    {{-- @dd($status, $tipo) --}}
-    <x-form-section-despesas title="Cadastrar nova depesa" > 
-    @if ($errors->any())
-        @foreach ($errors->all() as $error)
-            {{$error}}
-        @endforeach
-    @endif
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl sm:my-4 text-gray-800 leading-tight">
+            {{ __('Cadastrar Despesa') }}
+        </h2>
+    </x-slot>
+    
+        @if ($errors->any())
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{$error}}</li>
+            @endforeach
+        </ul>
+        @endif
         <form class="space-y-6" method="POST" action="{{route('despesas.store')}}">
             @csrf
-
             <x-despesas.form :status="$status" :tipos="$tipos"></x-despesas.form>
-
-            <div class="flex w-full justify-between">
-                <x-secondary-button href='{{redirect()->back()}}'>
-                    {{__('Cancelar')}}
-                </x-secondary-butto>
-                <x-primary-button>
-                    {{__('Cadastrar')}}
-                </x-primary-butto>
-            </div>
-          </form>
-    </x-form-section-despesas>
+        </form>
 </x-app-layout>
