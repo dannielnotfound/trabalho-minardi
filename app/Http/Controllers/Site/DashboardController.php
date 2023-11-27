@@ -19,7 +19,6 @@ class DashboardController extends Controller
 
         // Se $mes não for fornecido, assume o mês atual
         $mes = $mes ?? Carbon::now()->month;
-
         $primeiroDiaMes = Carbon::createFromDate($usuarioLogado->created_at->format('Y'), $mes, 1)->startOfMonth();
 
         // Obtém o último dia do mês
@@ -43,6 +42,11 @@ class DashboardController extends Controller
         // Recupera todas as receitas do usuário logado
         $todasReceitas = Receita::where('user_id', $usuarioLogado->id)->get();
 
+        // Filtra despesas por status
+        $despesasAVencer = $despesas->where('status', 'A');
+        $despesasPagas = $despesas->where('status', 'F');
+        $despesasAtrasadas = $despesas->where('status', 'P');
+
         // Calcule o total de despesas do mês
         $totalDespesas = $despesas->sum('valor');
 
@@ -61,6 +65,26 @@ class DashboardController extends Controller
         // Calcule o saldo acumulado (receitas - despesas)
         $saldoAcumulado = $totalReceitasAcumulado - $totalDespesasAcumulado;
 
-        return view('site.home.dashboard', compact('totalDespesas', 'totalReceitas', 'saldoMes', 'totalDespesasAcumulado', 'totalReceitasAcumulado', 'saldoAcumulado', 'mes'));
+        // Calcula o total de despesas a vencer
+        $totalDespesasAVencer = $despesasAVencer->sum('valor');
+
+        // Calcula o total de despesas pagas
+        $totalDespesasPagas = $despesasPagas->sum('valor');
+
+        // Calcula o total de despesas atrasadas
+        $totalDespesasAtrasadas = $despesasAtrasadas->sum('valor');
+
+        return view('site.home.dashboard', compact(
+            'totalDespesas',
+            'totalReceitas',
+            'saldoMes',
+            'totalDespesasAcumulado',
+            'totalReceitasAcumulado',
+            'saldoAcumulado',
+            'mes',
+            'totalDespesasAVencer',
+            'totalDespesasPagas',
+            'totalDespesasAtrasadas'
+        ));
     }
 }

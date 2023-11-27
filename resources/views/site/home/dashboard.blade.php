@@ -8,8 +8,7 @@
     {{-- @dd($totalDespesas, $totalReceitas, $saldo) --}}
 
     <div class="container mx-auto mt-8">
-        
-
+    
         <x-content-box>
             <div class="flex w-full justify-between">
                 <h1 class="text-2xl font-semibold mb-4">
@@ -49,6 +48,27 @@
                     </p>
                 </div>
     
+                <!-- Despesas a Vencer -->
+                <div class="bg-yellow-200 p-4 rounded-md">
+                    <h2 class="text-lg font-semibold mb-2">Despesas a Vencer</h2>
+                    <p class="text-3xl text-yellow-700">{{ 'R$ ' . number_format($totalDespesasAVencer, 2, ',', '.') }}</p>
+                </div>
+    
+                <!-- Despesas Pagas -->
+                <div class="bg-green-200 p-4 rounded-md">
+                    <h2 class="text-lg font-semibold mb-2">Despesas Pagas</h2>
+                    @php
+                        $despesasPagasLabel = $totalDespesasPagas > 0 ? "R$ " . number_format($totalDespesasPagas, 2, ',', '.') . " de " . number_format(($totalDespesasAVencer + $totalDespesasPagas + $totalDespesasAtrasadas), 2, ',', '.') : "Nenhuma despesa paga";
+                    @endphp
+                    <p class="text-3xl text-green-700">{{ $despesasPagasLabel }}</p>
+                </div>
+    
+                <!-- Despesas Atrasadas -->
+                <div class="bg-red-200 p-4 rounded-md">
+                    <h2 class="text-lg font-semibold mb-2">Despesas Atrasadas</h2>
+                    <p class="text-3xl text-red-700">{{ 'R$ ' . number_format($totalDespesasAtrasadas, 2, ',', '.') }}</p>
+                </div>
+    
                 <!-- Total Despesas Acumulado -->
                 <div class="bg-gray-200 p-4 rounded-md">
                     <h2 class="text-lg font-semibold mb-2">Total de Despesas Acumulado</h2>
@@ -71,20 +91,6 @@
             </div>
             </div>
         </x-content-box>
-        {{-- <!-- Dropdown para selecionar o mês -->
-        <form action="{{ route('dashboard') }}" method="get" class="mb-4">
-            @csrf
-            <label for="mes" class="mr-2">Selecione o Mês:</label>
-            <select name="mes" id="mes" class="border p-2">
-                @for ($i = 1; $i <= 12; $i++)
-                    <option value="{{ $i }}" {{ $i == $mes ? 'selected' : '' }}>
-                        {{ ucfirst(trans(strftime('%B', strtotime("$i/01/2000")))) }}
-                    </option>
-                @endfor
-            </select>
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Filtrar</button>
-        </form> --}}
-
-        
+   
     </div>
 </x-app-layout>
