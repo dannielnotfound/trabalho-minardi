@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="md:col-span-2">
-                  <label for="tipo_despesa">Tipo de Receita</label>
+                  <label for="tipo_despesa">Tipo de Despesa</label>
                   <select name="tipo_despesa" id="tipo_despesa" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50">
                     @if ($despesa)
                         @foreach ($tipos as $tipo)

@@ -5,6 +5,7 @@ use App\Enums\EnumDespesaTipo;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Site\DespesasController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Site\DashboardController;
 use App\Http\Controllers\Site\InvestimentosController;
 use App\Http\Controllers\Site\ReceitasController;
 use App\Http\Controllers\Site\ReservasController;
@@ -37,7 +38,8 @@ Route::middleware('auth')->group(function (){
     
     // Dashboard
     
-    Route::get('/dashboard', [DespesasController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/{mes?}', [DashboardController::class, 'index'])->name('dashboard');
+
     
 
 
