@@ -30,7 +30,7 @@
                     </x-nav-link>
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('reservas.index')" :active="request()->routeIs('reservas.index')">
                         {{ __('Reserva') }}
                     </x-nav-link>
@@ -40,7 +40,7 @@
                     <x-nav-link :href="route('investimentos.index')" :active="request()->routeIs('investimentos.index')">
                         {{ __('Investimentos, Ações e Fundos') }}
                     </x-nav-link>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Settings Dropdown -->
@@ -100,13 +100,13 @@
                 {{ __('Despesas') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('receitas.index')" :active="request()->routeIs('receitas.index')">
+             <x-responsive-nav-link :href="route('receitas.index')" :active="request()->routeIs('receitas.index')">
                 {{ __('Receitas') }}
             </x-responsive-nav-link>
-
+{{--
             <x-responsive-nav-link :href="route('investimentos.index')" :active="request()->routeIs('investimentos.index')">
                 {{ __('Investimentos, Ações e Fundos') }}
-            </x-responsive-nav-link>
+            </x-responsive-nav-link> --}}
         </div>
 
         <!-- Responsive Settings Options -->
